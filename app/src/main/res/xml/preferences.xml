@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/title">
+
+        <Preference
+            android:key="hdmi_input"
+            android:title="@string/hdmi_input"
+            android:summary="@string/hdmi_input_summary"/>
+
+        <Preference
+            android:key="delay"
+            android:title="@string/delay"
+            android:summary="@string/delay_summary"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
