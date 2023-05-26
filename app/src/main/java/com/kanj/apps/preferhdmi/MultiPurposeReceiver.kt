@@ -22,6 +22,9 @@ class MultiPurposeReceiver : BroadcastReceiver() {
 
     private fun onAlarmTriggered(context: Context) {
         Log.v("Kanj", "onAlarmTriggered")
+        // Is screen on?
+        // Is the selected HDMI available?
+
     }
 
     private fun onScreenOn(context: Context) {
@@ -35,19 +38,24 @@ class MultiPurposeReceiver : BroadcastReceiver() {
 
         fun setAlarm(context: Context) {
 
-            val broadcastIntent = Intent(ACTION_ALARM_TRIGGERED)
+            val broadcastIntent = Intent(context, MultiPurposeReceiver::class.java).apply {
+                action = ACTION_ALARM_TRIGGERED
+            }
             val pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent,
                 PendingIntent.FLAG_IMMUTABLE)
             val start = SystemClock.elapsedRealtime() + ALARM_DELAY // 1 minute after now
             val end = start + 10 * 60 * 1000 // 10 minutes, the minimum possible
 
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-            alarmManager?.setWindow(
-                AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                start,
-                end,
-                pendingIntent
-            )
+            alarmManager?.let {
+                it.setWindow(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    start,
+                    end,
+                    pendingIntent
+                )
+                Log.v("Kanj", "Set window alarm")
+            }
         }
     }
 }
